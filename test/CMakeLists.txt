@@ -114,7 +114,7 @@ foreach(filename IN LISTS XEUS_TESTS)
     get_filename_component(targetname ${filename} NAME_WE)
 
     add_executable(${targetname} ${filename})
-    target_link_libraries(${targetname} PRIVATE ${xeus_TARGET} ${GTEST_BOTH_LIBRARIES} Threads::Threads ${nlohmann_json_TARGET})
+    target_link_libraries(${targetname} PRIVATE ${xeus_TARGET} ${GTEST_BOTH_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT} ${nlohmann_json_TARGET})
     
     add_test(NAME ${targetname} COMMAND ${targetname})
 endforeach()
@@ -149,7 +149,7 @@ configure_file(
 )
 
 add_executable(test_kernel ${TEST_KERNEL_SOURCES})
-target_link_libraries(test_kernel PRIVATE ${xeus_TARGET} Threads::Threads)
+target_link_libraries(test_kernel PRIVATE ${xeus_TARGET} ${CMAKE_THREAD_LIBS_INIT})
 target_compile_features(test_kernel PRIVATE cxx_std_11)
 
 set(CONNECTION_FILE ${CMAKE_CURRENT_SOURCE_DIR}/connection.json)
@@ -179,7 +179,7 @@ configure_file(
 )
 
 add_executable(test_kernel_control ${TEST_KERNEL_SPLIT_SOURCES})
-target_link_libraries(test_kernel_control PRIVATE ${xeus_TARGET} Threads::Threads)
+target_link_libraries(test_kernel_control PRIVATE ${xeus_TARGET} ${CMAKE_THREAD_LIBS_INIT})
 target_compile_features(test_kernel_control PRIVATE cxx_std_11)
 
 set(CONNECTION_FILE ${CMAKE_CURRENT_SOURCE_DIR}/connection.json)
@@ -209,7 +209,7 @@ configure_file(
 )
 
 add_executable(test_kernel_shell ${TEST_KERNEL_SPLIT_SOURCES})
-target_link_libraries(test_kernel_shell PRIVATE ${xeus_TARGET} Threads::Threads)
+target_link_libraries(test_kernel_shell PRIVATE ${xeus_TARGET} ${CMAKE_THREAD_LIBS_INIT})
 target_compile_features(test_kernel_shell PRIVATE cxx_std_11)
 
 set(CONNECTION_FILE ${CMAKE_CURRENT_SOURCE_DIR}/connection.json)
